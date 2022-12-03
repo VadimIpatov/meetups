@@ -1,0 +1,9 @@
+# Binaries
+/bin/
+
+# Binaries
+/bin/
+
+# eeagent storage
+*eeagent*.db
+

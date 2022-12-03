@@ -1,0 +1,8 @@
+# Output of the go coverage tool
+*.out
+
+# MacOS service files
+.DS_Store
+
+# IDE
+.idea

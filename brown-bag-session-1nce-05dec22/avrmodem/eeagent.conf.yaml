@@ -1,0 +1,80 @@
+verbose: true
+mode: single_pass
+
+dbname: avrmodem/eeagent.db
+
+plugins:
+  probe:
+    board_type: stubhat
+    modem:
+      driver: quectel-ex25x
+      serial_port: /dev/cu.usbmodem14101
+      baud_rate: 9600
+
+pipeline:
+  - name: init
+    plugin: probe
+    run_once: true
+    restart_on_fail: hard
+
+  - name: host_info
+    plugin: host_info
+    params:
+      alias: avr_test
+
+  - name: sim_info
+    plugin: sim_info
+
+  #  - plugin: cops
+  #    run_once: true
+  #    restart_on_fail: hard
+
+  #  - name: silent
+  #    plugin: experimental/at
+  #    params:
+  #      cmd: AT+ATM0
+
+  #  - name: network_info
+  #    plugin: network_info
+  #
+  #  - name: signal_quality
+  #    plugin: signal_quality
+
+  - name: ps_attachment
+    plugin: ps_attach
+    params:
+      action: attach
+      max_attempts: 3
+
+  #  - name: pdp_context_activation
+  #    plugin: pdp
+  #    deps:
+  #      - ps_attachment
+  #    restart_on_fail: soft
+  #    params:
+  #      action: activate
+  #      max_attempts: 3
+
+  #  - name: ping_external
+  #    plugin: ping
+  #    deps:
+  #      - pdp_context_activation
+  #    params:
+  #      host: 8.8.8.8
+  #      count: 5
+  #      timeout: 3
+
+  #  - name: pdp_context_deactivation
+  #    plugin: pdp
+  #    deps:
+  #      - pdp_context_activation
+  #    params:
+  #      action: deactivate
+
+  - name: ps_detachment
+    plugin: ps_attach
+    params:
+      action: detach
+
+export:
+  - exporter: stdout
