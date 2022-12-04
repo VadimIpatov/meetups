@@ -25,7 +25,7 @@ flash:
 
 .PHONY: hello
 hello:
-	cd helloworld && tinygo build -target arduino-mega2560 hello.go
+	cd helloworld && tinygo flash -target arduino-mega2560 hello.go
 
 .PHONY: buzzer
 buzzer:

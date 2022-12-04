@@ -8,7 +8,7 @@ plugins:
     board_type: stubhat
     modem:
       driver: quectel-ex25x
-      serial_port: /dev/cu.usbmodem14101
+      serial_port: /dev/cu.usbmodem14401
       baud_rate: 9600
 
 pipeline:
